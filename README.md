@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Swagger generated server
 
 ## Overview
@@ -22,3 +23,7 @@ open http://localhost:8080/docs
 ```
 
 This project leverages the mega-awesome [swagger-tools](https://github.com/apigee-127/swagger-tools) middleware which does most all the work.
+=======
+# rdd-apidocs
+API Documentation for RonDonDon
+>>>>>>> 41968cae65bd67da65e00abf8d2a4adf161340f3
