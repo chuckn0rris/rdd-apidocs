@@ -1,0 +1,428 @@
+---
+swagger: "2.0"
+info:
+  description: "## API v1\n\nДокументация включает примеры запросов и ответов, мод\
+    елей\n\n\n##### Limits\n= скоро ;)\n\n##### Модели\n###### Object:\nатрибуты о\
+    бъекта [Object] указанного в этой документации ВСЕГДА находятся в корне\n\n######\
+    \ Пагинация\n```json\n{\n    \"count\": 200,\n    \"next\": 101,\n    \"previous\"\
+    : 99,\n    \"results\": {\n        ...\n    }\n}\n```\n\n### Общая информация\n"
+  version: "1.0.0"
+  title: "rondondon.com"
+  termsOfService: "http://rondondon.com/terms/"
+  contact:
+    name: "rondondon API team"
+    url: "http://rondondon.com"
+    email: "team@rondondon.com"
+host: "rondondon.com"
+basePath: "/api/v1"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /carbrands:
+    get:
+      tags:
+      - "carbrands"
+      description: "Возвращает бренды машин"
+      operationId: "carbrandsGET"
+      parameters: []
+      responses:
+        200:
+          description: "бренды машин"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/carbrands"
+      x-swagger-router-controller: "Carbrands"
+  /offers/:
+    get:
+      tags:
+      - "Offers"
+      description: "Возвращает список обьявлений,\n"
+      operationId: "offersGET"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+      x-swagger-router-controller: "Offers"
+  /offers/{id}:
+    get:
+      tags:
+      - "Offers"
+      description: "Возвращает обьявление по Id,\n"
+      operationId: "findPetById"
+      produces:
+      - "application/json"
+      - "application/xml"
+      - "text/xml"
+      - "text/html"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID обьявления для получения"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "объяление response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/offers"
+      x-swagger-router-controller: "Offers"
+  /owners/{id}:
+    get:
+      tags:
+      - "owner"
+      description: "Возвращает публичные данные владельца,\n"
+      operationId: "findOwnerById"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID владельца для получения информации"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "публичные данные владельца"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ownerUser"
+      x-swagger-router-controller: "Owner"
+  /owners/{owner-id}/transports:
+    get:
+      tags:
+      - "transport"
+      description: "Возвращает список транспорта владельца,\n"
+      operationId: "findTransportByOwnerId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "owner-id"
+        in: "path"
+        description: "ID владельца для получения информации"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "список транспорта владельца"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/transports"
+      x-swagger-router-controller: "Transport"
+    post:
+      tags:
+      - "transport"
+      operationId: "ownersOwner_idTransportsPOST"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "owner-id"
+        in: "path"
+        description: "ID владельца для получения информации"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "Object"
+        required: false
+        schema:
+          $ref: "#/definitions/transports"
+      responses:
+        200:
+          description: "Добавление транспорта"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/transports"
+      x-swagger-router-controller: "Transport"
+  /owners/{owner-id}/transports/{transport-id}:
+    get:
+      tags:
+      - "transport"
+      description: "Возвращает транспорт владельца по\nOwnerId и TransportId\n"
+      operationId: "findTransportByOwnerIdAndTrasportId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "owner-id"
+        in: "path"
+        description: "ID владельца"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "transport-id"
+        in: "path"
+        description: "ID транспорта"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "список транспорта владельца"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/transports"
+      x-swagger-router-controller: "Transport"
+  /owners/{owner-id}/transports/{transport-id}/image:
+    get:
+      tags:
+      - "transport"
+      description: "Возвращает список фото транспорта владельца по\nOwnerId и TransportId\n"
+      operationId: "findPhotoTransportByOwnerIdAndTrasportId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "owner-id"
+        in: "path"
+        description: "ID владельца"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "transport-id"
+        in: "path"
+        description: "ID транспорта"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "список фото для транспорта владельца\n"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/photos"
+      x-swagger-router-controller: "Transport"
+  /user:
+    get:
+      tags:
+      - "user"
+      description: "Возвращает данные текущего пользователя"
+      operationId: "userGET"
+      parameters: []
+      responses:
+        200:
+          description: "текущий пользователь"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/customUser"
+      x-swagger-router-controller: "User"
+    put:
+      tags:
+      - "user"
+      description: "Обновление данных текущего пользователя"
+      operationId: "userPUT"
+      parameters: []
+      responses:
+        200:
+          description: "обновление текущего пользователя"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/customUser"
+      x-swagger-router-controller: "User"
+definitions:
+  offers:
+    type: "object"
+    properties:
+      ownerUser:
+        $ref: "#/definitions/ownerUser"
+      Object:
+        $ref: "#/definitions/transports"
+  ownerUser:
+    type: "object"
+    properties:
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      company:
+        type: "string"
+      district:
+        type: "string"
+      mapCoordinates:
+        type: "string"
+      socialContacts:
+        $ref: "#/definitions/ownerUser_socialContacts"
+      link:
+        type: "string"
+      avatar:
+        $ref: "#/definitions/avatars"
+  photos:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      photo:
+        type: "string"
+      owner_id:
+        type: "integer"
+        format: "int64"
+      transport_id:
+        type: "integer"
+        format: "int64"
+  avatars:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      avatar:
+        type: "string"
+      owner_id:
+        type: "integer"
+        format: "int64"
+  transports:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      atype:
+        type: "string"
+      brand:
+        type: "string"
+      model:
+        type: "string"
+      color:
+        type: "string"
+      photos:
+        type: "array"
+        items:
+          $ref: "#/definitions/photos"
+      transportId:
+        type: "string"
+      url:
+        type: "string"
+      description:
+        type: "string"
+      prices:
+        type: "object"
+        properties: {}
+      creation_date:
+        type: "string"
+      modify_date:
+        type: "string"
+      year:
+        type: "integer"
+      mileage:
+        type: "integer"
+      isActive:
+        type: "string"
+      isAvailable:
+        type: "string"
+      complectation:
+        type: "string"
+      availableFrom:
+        type: "string"
+      availableNow:
+        type: "string"
+      meta:
+        type: "object"
+        properties: {}
+      owner:
+        type: "string"
+  customUser:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      avatar:
+        $ref: "#/definitions/avatars"
+      last_login:
+        type: "string"
+      email:
+        type: "string"
+      date_joined:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      company:
+        type: "string"
+      country:
+        type: "string"
+      zipCode:
+        type: "string"
+      city:
+        type: "string"
+      district:
+        type: "string"
+      address1:
+        type: "string"
+      address2:
+        type: "string"
+      timezone:
+        type: "string"
+      mapCoordinates:
+        type: "string"
+      phone:
+        type: "string"
+      mobilePhone:
+        type: "string"
+      publicEmail:
+        type: "string"
+      socialContacts:
+        $ref: "#/definitions/ownerUser_socialContacts"
+      link:
+        type: "string"
+      meta:
+        type: "object"
+        properties: {}
+  carbrands:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      code:
+        type: "string"
+      title:
+        type: "string"
+  inline_response_200:
+    properties:
+      next:
+        type: "number"
+      previous:
+        type: "number"
+      count:
+        type: "number"
+      results:
+        type: "array"
+        items:
+          $ref: "#/definitions/offers"
+    description: "**Note**: атрибуты объекта [Object] ВСЕГДА находятся в корне\n"
+  ownerUser_socialContacts:
+    properties:
+      whatsapp:
+        type: "string"
+      skype:
+        type: "string"
+      facebook:
+        type: "string"
+      instagram:
+        type: "string"
+      viber:
+        type: "string"
