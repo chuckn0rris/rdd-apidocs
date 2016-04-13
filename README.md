@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Swagger generated server
 
 ## Overview
@@ -26,4 +26,4 @@ This project leverages the mega-awesome [swagger-tools](https://github.com/apige
 =======
 # rdd-apidocs
 API Documentation for RonDonDon
->>>>>>> 41968cae65bd67da65e00abf8d2a4adf161340f3
+
